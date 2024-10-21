@@ -20,7 +20,7 @@
 
 1. **克隆仓库**： `bash git clone https://github.com/runesign/file_manager.git `
 2. **进入项目目录**： `cd  file_manager `
-3. **安装依赖**： flutter pub get ```
+3. **安装依赖**： `flutter pub get `
 4. **运行应用**： `flutter run `
 
 ### 构建应用
