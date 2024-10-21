@@ -1,4 +1,6 @@
 # 双栏文件管理器
+![2024-10-21-173729_hyprshot](https://github.com/user-attachments/assets/34f84feb-527b-4c4f-bb15-64cb23849e31)
+![2024-10-21-173805_hyprshot](https://github.com/user-attachments/assets/259833fa-62d4-4b91-ae5b-c4e681eba5bd)
 
 ## 概述
 
