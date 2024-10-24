@@ -1,0 +1,91 @@
+name: Release Build
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Windows
+        run: flutter build windows
+
+      - name: Archive Windows build
+        run: |
+          cd build/windows/x64/runner/Release
+          7z a -tzip windows-release.zip ./*
+
+      - name: Upload Windows build
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/windows/x64/runner/Release/windows-release.zip
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build libgtk-3-dev
+          flutter pub get
+
+      - name: Build Linux
+        run: flutter build linux
+
+      - name: Archive Linux build
+        run: |
+          cd build/linux/x64/release/bundle
+          tar czf ../../../../../linux-release.tar.gz ./*
+
+      - name: Upload Linux build
+        uses: softprops/action-gh-release@v1
+        with:
+          files: linux-release.tar.gz
+
+  build-web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Web
+        run: flutter build web
+
+      - name: Archive Web build
+        run: |
+          cd build/web
+          zip -r ../../web-release.zip ./*
+
+      - name: Upload Web build
+        uses: softprops/action-gh-release@v1
+        with:
+          files: web-release.zip
